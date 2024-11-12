@@ -1,0 +1,21 @@
+name: Build and Push Docker Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        run: docker login -u ilovecats33333 -p ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+
+      - name: Build Docker image
+        run: docker build -t ilovecats33333/klk:latest .
+        
+      - name: Push Docker image to Docker Hub
+        run: docker push ilovecats33333/klk:latest
